@@ -1,0 +1,39 @@
+services:
+
+  php-apache:
+    build: .
+    container_name: acg-web
+    ports:
+      - "8080:80"
+    volumes:
+      - ./config/acg.ini:/usr/local/etc/php/conf.d/acg.ini:ro
+      - ./config/vhost.conf:/etc/apache2/sites-available/000-default.conf:ro
+      # Mount var/ as a writable volume so logs/photos survive rebuilds
+      - acg-var:/shared/httpd/acg/var
+    depends_on:
+      mysql:
+        condition: service_healthy
+    restart: unless-stopped
+
+  mysql:
+    image: mysql:8.0
+    container_name: acg-db
+    environment:
+      MYSQL_DATABASE: advclub
+      MYSQL_USER: advclub
+      MYSQL_PASSWORD: sometingmon
+      MYSQL_ROOT_PASSWORD: acgroot
+    volumes:
+      - ./mysql-init:/docker-entrypoint-initdb.d:ro
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "advclub", "-psometingmon"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    restart: unless-stopped
+
+volumes:
+  mysql-data:
+  acg-var:

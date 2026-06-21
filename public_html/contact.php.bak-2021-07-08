@@ -1,0 +1,381 @@
+<?php
+
+require('always.include.php');
+//$debug = true;
+//$debug = false;
+
+//session_start();
+//require('include.php');
+
+$MaxVarLength = 2000;
+
+if (isset($_SERVER['REMOTE_ADDR']))
+	$RemoteIPNumber = quotesqldata($_SERVER['REMOTE_ADDR']);
+else
+	$RemoteIPNumber = "";
+
+if (isset($_SERVER['REMOTE_HOST']))
+	$RemoteHostName = quotesqldata($_SERVER['REMOTE_HOST']);
+else
+	$RemoteHostName = "";
+
+
+// Register an error array - just in case!
+if (!SessionIsRegistered("errors")) {
+	$errors = array();
+	SessionRegister("errors", $errors);
+}
+
+// Set up a $formVars array with the POST variables
+// and register with the session.
+if (!SessionIsRegistered("formVars")) {
+	$formVars = array();
+	SessionRegister("formVars", $formVars);
+} else {
+	$formVars = $_SESSION['formVars'];
+}
+
+
+$HttpPostVarTruncated = false;
+foreach ($_POST as $varname => $value) {
+	$formVars[$varname] = clean($value,$MaxVarLength);
+	if (strlen(trim($value)) > $MaxVarLength) {
+		$HttpPostVarTruncated = true;
+	}
+}
+
+//foreach($$_GET as $varname => $value)
+//    $formVars[$varname] = substr(trim($value),0,500);
+
+$mode = "BlankForm";
+
+$reset = "";
+if (isset($formVars['ResetForm'])) {
+	$mode = "BlankForm";
+} else if (isset($formVars['mode'])) {
+	$mode = $formVars['mode'];
+}
+
+if ($debug) {
+	LogMsg('mode: ' . $mode . '<br>');
+}
+
+$email_addr = "";
+$random_string = "";
+$CaptchaPassword = "";
+if ($mode == "BlankForm") {
+	$email_subject = "";
+	$email_body = "";
+	$errors = array();
+	if (isset($formVars['ResetForm'])) {
+		unset($formVars['ResetForm']);
+	}
+} else {
+	if (isset($formVars['email_addr']))
+		$email_addr = substr($formVars['email_addr'], 0, 60);
+	$email_subject = "";
+	if (isset($formVars['email_subject']))
+		$email_subject = substr($formVars['email_subject'], 0, 100);
+	$email_body = "";
+	if (isset($formVars['email_body']))
+		$email_body = $formVars['email_body'];
+	$CaptchaPassword = "";
+	if (isset($formVars['password']))
+		$CaptchaPassword = $formVars['password'];
+	if (isset($formVars['random']))
+		$random_string = $formVars['random'];
+}
+
+// Show an error in a red font
+function fieldError($fieldName, $errors)
+{
+	if (isset($errors[$fieldName]))
+		echo "<font color=\"red\">" .
+			$errors[$fieldName] .
+			"</font><br>";
+}
+
+
+//$errors['contact'] = "This is a test error message";
+//print_r($errors);
+
+
+function print_form($mode, $email_addr, $email_subject, $email_body)
+{
+	global $errors;
+	global $RemoteIPNumber;
+	global $RemoteHostName;
+
+	$ClubCompanyName = GetParameter('ClubCompanyName');
+	$ClubOwnerName = GetParameter('ClubOwnerName');
+
+	echo '<h3 align="left">Contact Us</h3>';
+
+	$ContactFormError = '';
+	if (count($errors) > 0) {
+		$ContactFormError = "<h2><font color=\"red\">Error: "
+			. $errors['contact']
+			. "</font></h2>";
+		//print_r($errors);
+		//exit;
+	}
+
+?>
+	<p align="left">Questions about membership? Activity suggestions? Problem with the web site? We are just a click away!</p>
+	<table cellspacing=8>
+
+		<!--
+        <tr>
+          <td align="right" valign="top">
+          <b>Phone1:</b>
+          </td>
+          <td align="left" valign="top">
+          <?php //echo GetParameter('ContactPhoneNumber1'); 
+			?>
+          </td>
+        </tr>
+		-->
+
+		<?php
+		$ContactPhoneNumber2 = GetParameter('ContactPhoneNumber2');
+		if (!empty($ContactPhoneNumber2)) {
+		?>
+			<tr>
+				<td align="right" valign="top">
+					<b>Phone2:</b>
+				</td>
+				<td align="left" valign="top">
+					<?php GetParameter('ContactPhoneNumber2'); ?>
+				</td>
+			</tr>
+		<?php
+		}
+		?>
+
+		<tr>
+			<td align="right" valign="top">
+				<b>Address:</b>
+			</td>
+			<td align="left" valign="top">
+				<?php echo $ClubCompanyName; ?><br>
+				<?php echo GetParameter('FullContactName'); ?><br>
+				<?php echo GetParameter('SnailMailAddress1'); ?><br>
+				<?php echo GetParameter('SnailMailAddress2'); ?>
+			</td>
+		</tr>
+	</table>
+
+	<p><b>Make Checks out to:</b>&nbsp;<?php echo $ClubOwnerName; ?></p>
+
+	<form method="POST" action="contact.php">
+		<input type="hidden" name="mode" value="<?php echo $mode; ?>">
+
+		<input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
+		<input type="hidden" name="action" value="validate_captcha">
+
+		<table border="0" cellpadding="2" cellspacing="2">
+			<td align="left" colspan=2>
+				<?php echo $ContactFormError; ?>
+				Enter your comments and suggestions into the form below:
+			</td>
+			<tr>
+				<td align="right" valign="top">
+					<b>Your Email Address:</b></td>
+				<td align="left">
+					<input type="text" name="email_addr" maxlength="50" size="42" tabindex="1" value="<?php if (isset($email_addr)) echo $email_addr; ?>">
+				</td>
+			</tr>
+			<tr>
+				<td align="right" valign="top">
+					<b>Subject:</b></td>
+				<td align="left">
+					<input type="text" name="email_subject" maxlength="50" size="42" tabindex="2" value="<?php if (isset($email_subject)) echo $email_subject; ?>">
+				</td>
+			</tr>
+			<tr>
+				<td align="right" valign="top">
+					<b>Comment:</b></td>
+				<td align="left">
+					<textarea tabindex="3" cols="32" rows="16" name="email_body"><?php if (isset($email_body)) echo $email_body; ?></textarea>
+				</td>
+			</tr>
+			<td>
+			</td>
+			</tr>
+
+			<tr>
+				<td>&nbsp;</td>
+				<td align="left"><input type="submit" value="Submit Comments and Questions" tabindex="4">
+					<input type="submit" name="ResetForm" value="Reset Form" tabindex="4">
+				</td>
+			</tr>
+		</table>
+	</form>
+	<?php
+
+
+	echo "<p>Remote host IP Number: " . $RemoteIPNumber
+		. "  Remote Host Name " . $RemoteHostName;
+}
+
+
+function process_form($contact_addr, $contact_subject, $contact_body)
+{
+	global $HttpPostVarTruncated;
+	global $MaxVarLength;
+	global $errors;
+	global $RemoteIPNumber;
+	global $RemoteHostName;
+
+	$ClubCompanyName 		= GetParameter('ClubCompanyName');
+	$ContactPhoneNumber = GetParameter('ContactPhoneNumber1');
+	$EmailNoticesTo 		= GetParameter('EmailNoticesTo');
+	$EmailNoticesFrom 	= GetParameter('EmailNoticesFrom');
+	$ShortClubName 			= GetParameter('ShortClubName');
+
+	$EmailReplyAddress = $EmailNoticesFrom;
+	$email_from =
+		"From: "
+		. $EmailReplyAddress
+		. "\n"
+		. "Reply-To: "
+		. $EmailReplyAddress
+		. "\n"
+		. "X-Mailer: PHP/" . phpversion();
+	$email_subject = $ShortClubName . " Contact.php: " . $contact_subject;
+	$email_body = "New contact.php message from: \n\n"
+		. $contact_addr
+		. "\n\n"
+		. $contact_body;
+
+	if ($HttpPostVarTruncated) {
+		$email_body .= "\n\n"
+			. "MESSAGE TRUNCATED by Contact.php: "
+			. "text is greater than " . $MaxVarLength . " characters.";
+	}
+
+	$email_body .= "\n\n"
+		. "REMOTE HOST IP NUMBER: " . $RemoteIPNumber
+		. "\nREMOTE HOST NAME " . $RemoteHostName;
+
+	LogMsg("Contact running mailwrapper emailNoticesTo: " . $EmailNoticesTo);
+	LogMsg("email_subject: " . $email_subject);
+	MailWrapper($EmailNoticesTo, $email_subject, $email_body, $email_from);
+
+	echo <<<END
+	<table>
+		<tr>
+		<td>&nbsp</td>
+		<td>
+		An email has been sent to the club owner and administrator.
+		Thank you for your comments and suggestions!
+		</td>
+		</tr>
+	</table>
+END;
+} // end function process_form
+
+// code begins here
+
+$FileName = $_SERVER['PHP_SELF'];
+$ClubCompanyName = GetParameter('ClubCompanyName');
+$WebPageTitle = 'Contact ' . $ClubCompanyName;
+require('top_recaptcha.php');
+
+$EmailNoticesTo = GetParameter('EmailNoticesTo');
+
+switch ($mode) {
+	case 'BlankForm':
+		$mode = 'ProcessForm';
+		//LogMsg("CONTACT: BlankForm. mode: " . $mode);
+		print_form($mode, $email_addr, $email_subject, $email_body);
+		break;
+	case 'PrintForm':
+		$mode = 'ProcessForm';
+		//LogMsg("CONTACT: PrintForm. mode: " . $mode);
+		print_form($mode, $email_addr, $email_subject, $email_body);
+		break;
+	case 'ProcessForm':
+		//LogMsg("CONTACT: ProcessForm. mode: " . $mode);
+		$captcha = false;
+		if (empty($email_addr) || empty($email_subject) || empty($email_body)) {
+			$errors['contact'] = 'You must enter an email address, subject and comment!';
+			$mode = "ProcessForm";
+			print_form($mode, $email_addr, $email_subject, $email_body);
+		} else if (isset($_POST['g-recaptcha-response'])) {
+			$captcha = clean($_POST['g-recaptcha-response']);
+			//LogMsg("captcha: ".$captcha);
+		}
+
+		if (!$captcha) {
+			//Do something with error
+			$errors['contact'] = "CAPTCHA ERROR";
+			LogMsg("CAPTCHA ERROR =============================");
+			LogMsg("CAPTCHA ERROR: email_addr: ".$email_addr);
+			LogMsg("CAPTCHA ERROR: email_subject: ".$email_subject);
+			LogMsg("CAPTCHA ERROR: email_body: ".$email_body);
+			LogMsg("CAPTCHA ERROR: RemoteIPNumber: ".$RemoteIPNumber);
+		} else {
+			//LogMsg("RUNNING FILE_GET_CONTENTS");
+			$secret = '6Lc2iqkUAAAAAF_Yuy-htwPNEbDkgdc6EX-jONjj';
+			$post_link = "https://www.google.com/recaptcha/api/siteverify?secret="
+				. $secret . "&response=" . $captcha . "&remoteip=" . $_SERVER['REMOTE_ADDR'];
+			$response = file_get_contents($post_link);
+			//LogMsg("RESPONSE: ".$response);
+			$json = json_decode($response);
+			$success = $json->success;
+			//LogMsg("SUCCESS: ".$success);
+			//$success = true;
+			if ($success == false) {
+				//Do something with error
+				LogMsg("CAPTCHA FAILED.");
+				LogMsg("CAPTCHA FAILED email_addr: " . $email_addr);
+				LogMsg("CAPTCHA FAILED email_subject: " . $email_subject);
+				LogMsg("CAPTCHA FAILED email_subject: " . $email_subject);
+				$errors['contact'] = "YOU FAILED THE CAPTCHA TEST, SORRY!";
+				$mode = 'BlankForm';
+				print_form($mode, $email_addr, $email_subject, $email_body);
+			} else {
+				//... The Captcha is valid you can continue with the rest of your code
+				LogMsg("Captcha success, sending emails to: " . $EmailNoticesTo);
+				LogMsg("Contact email_addr: " . $email_addr);
+				LogMsg("Contact email_subject: " . $email_subject);
+				LogMsg("Contact email_body: " . $email_body);
+				process_form($email_addr, $email_subject, $email_body);
+				unset($_POST['mode']);
+				unset($_POST['email_addr']);
+				unset($_POST['email_subject']);
+				unset($_POST['email_body']);
+				SessionUnregister("errors");
+			}
+		}
+		break;
+	default:
+		LogMsg("CONTACT default: mode: " . $mode);
+		$mode = 'BlankForm';
+		print_form($mode, $email_addr, $email_subject, $email_body);
+		break;
+}
+
+if ($debug) {
+	LogMsg("<br><br>HTTP_POST_VARS:<BR>");
+	foreach ($_POST as $varname => $value)
+		LogMsg("VarName: " . clean($varname,500) .
+			"  Value: " . substr(trim($value), 0, 500) . "<br>");
+	LogMsg("<br>formVars<br>");
+	foreach ($formVars as $varname => $value)
+		LogMsg("VarName: " . $varname .
+			"  Value: " . substr(trim($value), 0, 500) . "<br>");
+	LogMsg("<br>");
+	LogMsg('mode: ' . $mode . '<br>');
+	LogMsg('email_addr: ' . $email_addr . '<br>');
+	LogMsg('email_subject: ' . $email_subject . '<br>');
+	LogMsg('email_body: ' . $email_body . '<br>');
+	LogMsg('errors array: ');
+	print_r($errors);
+	LogMsg('random_string: ' . $random_string . '<br>');
+	LogMsg('CaptchaPassword: ' . $CaptchaPassword . '<br>');
+	LogMsg("EmailNoticesTo: " . $EmailNoticesTo);
+}
+	?><?php
+	require('footer.php'); ?>

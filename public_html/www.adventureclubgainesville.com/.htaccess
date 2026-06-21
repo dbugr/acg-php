@@ -1,0 +1,2 @@
+# Redirect visitors using http://adventureclubgainesville.com to https://adventureclub.info
+Redirect 301 / https://adventureclub.info/

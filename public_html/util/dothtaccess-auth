@@ -1,0 +1,6 @@
+AuthName      "AdventureClub.Info Sandbox"
+AuthType      Basic
+AuthUserFile  /home/advclub/public_html/.htpasswd
+<Limit GET POST>
+require valid-user
+</Limit>

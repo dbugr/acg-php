@@ -1,0 +1,6 @@
+{
+    "require": {
+        "amphp/http-client": "^4.6",
+        "mailgun/mailgun-php": "^3.0"
+    }
+}

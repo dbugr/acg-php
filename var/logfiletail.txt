@@ -1,0 +1,21 @@
+2020.01.14 10:26:45 :contact.php: YOU FAILED THE CAPTCHA TEST, SORRY!
+
+2020.01.14 10:26:45 :contact.php: FAILED EMAIL: sailfl@gmail.com
+
+2020.01.14 10:26:45 :contact.php: FAILED SUBJECT: Testiing ACG contact form emails
+
+2020.01.14 10:27:00 :contact.php: YOU FAILED THE CAPTCHA TEST, SORRY!
+
+2020.01.14 10:27:00 :contact.php: FAILED EMAIL: sailfl@gmail.com
+
+2020.01.14 10:27:00 :contact.php: FAILED SUBJECT: Testiing ACG contact form emails
+
+2020.01.14 10:27:24 :join.php: join.php starting...<br>
+
+2020.01.14 10:27:25 :join.php: join.php starting...<br>
+
+2020.01.14 10:28:01 :contact.php: Captcha success, sending emails to: ,chuck.broker@gmail.comMsStory96@aol.com,sharonjulien@gmail.com
+
+2020.01.14 10:28:01 :contact.php: Contact running mailwrapper emailNoticesTo: ,chuck.broker@gmail.comMsStory96@aol.com,sharonjulien@gmail.com
+
+2020.01.14 10:28:01 :contact.php: NOTICE: "Undefined variable: email_subject" (error #8).

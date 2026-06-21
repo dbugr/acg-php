@@ -1,0 +1,214 @@
+BODY {
+	PADDING-RIGHT: 0px;
+	PADDING-LEFT: 0px;
+	BACKGROUND-IMAGE: url(/images/J0143749.GIF);
+	PADDING-BOTTOM: 0px;
+	MARGIN: 10px 10px 0px;
+	PADDING-TOP: 0px;
+	FONT-FAMILY: "Arial"
+}
+
+#leftcontent {
+	BORDER-RIGHT: #000 1px solid;
+	BORDER-TOP: #000 1px solid;
+	FONT-WEIGHT: bold;
+	BACKGROUND: #fff;
+	LEFT: 3px;
+	BORDER-LEFT: #000 1px solid;
+	WIDTH: 130px;
+	BORDER-BOTTOM: #000 1px solid;
+	FONT-FAMILY: "Arial";
+	POSITION: absolute;
+	TOP: 125px
+}
+
+#centercontent {
+	MARGIN-TOP: 10px;
+	BACKGROUND-IMAGE: url(/images/J0143749.GIF);
+	MARGIN-RIGHT: 10px;
+	FONT-FAMILY: "Arial";
+	POSITION: absolute;
+	TOP: 125px;
+	MARGIN-BOTTOM: 40px;
+	MARGIN-LEFT: 15px;
+	LEFT: 130px;
+}
+
+#centercontent2 {
+	BACKGROUND-IMAGE: url(/images/J0143749.GIF);
+	MARGIN-RIGHT: 10px;
+	FONT-FAMILY: "Arial";
+	POSITION: absolute;
+	TOP: 125px;
+	MARGIN-BOTTOM: 40px;
+	MARGIN-LEFT: 15px;
+	LEFT: 130px;
+}
+
+UNKNOWN {
+	MARGIN-LEFT: 201px;
+	MARGIN-RIGHT: 152px;
+	FONT-FAMILY: "Arial"
+}
+
+#rightcontent {
+	BORDER-RIGHT: #000 1px solid;
+	BORDER-TOP: #000 1px solid;
+	RIGHT: 10px;
+	BACKGROUND: #fff;
+	BORDER-LEFT: #000 1px solid;
+	WIDTH: 25%;
+	BORDER-BOTTOM: #000 1px solid;
+	FONT-FAMILY: "Arial";
+	POSITION: absolute;
+	TOP: 185px
+}
+
+#logo {
+	RIGHT: 10px;
+	BACKGROUND: #fff;
+	WIDTH: 152px;
+	POSITION: absolute;
+	TOP: 10px
+}
+
+#login {
+	BACKGROUND: #e1bc88;
+	LEFT: 10px;
+	WIDTH: 155px;
+	POSITION: absolute;
+	HEIGHT: 50px;
+	TOP: 125px
+}
+
+#banner {
+	FONT-WEIGHT: bold;
+	LEFT: 10px;
+	POSITION: absolute;
+	FONT-STYLE: italic;
+	FONT-FAMILY: Arial;
+	TEXT-ALIGN: left;
+	WIDTH: 550px;
+}
+
+#bannerline1 {
+	FONT-WEIGHT: 800;
+	FONT-STYLE: italic;
+	FONT-FAMILY: "Bookman Old Style", cursive;
+	Font-size: 18pt;
+	TEXT-ALIGN: left;
+}
+
+#banner2 {
+	Z-INDEX: 2;
+	RIGHT: 60px;
+	MARGIN-LEFT: 199px;
+	WIDTH: 300px;
+	COLOR: #ffffff;
+	MARGIN-RIGHT: 175px;
+	FONT-FAMILY: "Arial";
+	POSITION: absolute;
+	TOP: 60px;
+	HEIGHT: 30px;
+	BACKGROUND-COLOR: #000000;
+	TEXT-ALIGN: center
+}
+
+#banner3 {
+	FONT-SIZE: 25px;
+	MARGIN-LEFT: 199px;
+	WIDTH: 60%;
+	MARGIN-RIGHT: 175px;
+	FONT-FAMILY: "Arial";
+	POSITION: absolute;
+	TOP: 90px;
+	HEIGHT: 30px
+}
+
+#banner3A {
+	MARGIN-LEFT: 199px;
+	WIDTH: 60%;
+	MARGIN-RIGHT: 175px;
+	FONT-FAMILY: "Arial";
+	POSITION: absolute;
+	TOP: 95px;
+	HEIGHT: 30px
+}
+
+#banner4 {
+	Z-INDEX: 2;
+	RIGHT: 10px;
+	WIDTH: 50px;
+	MARGIN-RIGHT: 175px;
+	POSITION: absolute;
+	TOP: 10px;
+	HEIGHT: 50px;
+	BACKGROUND-COLOR: #000000
+}
+
+UNKNOWN {
+	HEIGHT: 39px
+}
+
+P {
+	MARGIN: 0px 10px 10px
+}
+
+H1 {
+	MARGIN: 0px 10px 10px
+}
+
+PRE {
+	MARGIN: 0px 10px 10px
+}
+
+H1 {
+	FONT-SIZE: 14px;
+	PADDING-TOP: 10px
+}
+
+#banner H1 {
+	PADDING-RIGHT: 10px;
+	PADDING-LEFT: 10px;
+	FONT-SIZE: 25px;
+	PADDING-BOTTOM: 0px;
+	MARGIN: 0px;
+	PADDING-TOP: 10px
+}
+
+#rightcontent P {
+	FONT-SIZE: 10px
+}
+
+.p-shadow {
+	width: 90%;
+	float: left;
+	background: url(/images/shadowAlpha.png) no-repeat bottom right !important;
+	background: url(/images/shadow.gif) no-repeat bottom right;
+	margin: 10px 0 0 10px !important;
+	margin: 10px 0 0 5px;
+}
+
+.p-shadow div {
+	background: none !important;
+	background: url(/images/shadow2.gif) no-repeat left top;
+	padding: 0 !important;
+	padding: 0 6px 6px 0;
+}
+
+.img-shadow {
+	float: left;
+	background: url(/images/shadowAlpha.png) no-repeat bottom right !important;
+	background: url(/images/shadow.gif) no-repeat bottom right;
+	margin: 10px 0 0 10px !important;
+	margin: 10px 0 0 5px;
+}
+
+.img-shadow img {
+	display: block;
+	position: relative;
+	background-color: #fff;
+	border: 1px solid #a9a9a9;
+	margin: -6px 6px 6px -6px;
+	padding: 4px;
+}

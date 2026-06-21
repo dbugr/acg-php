@@ -1,0 +1,10 @@
+User-agent: *
+Disallow: /cgi-bin/
+Disallow: /images/
+Disallow: /contact.php
+User-agent: SemrushBot
+Disallow: /
+User-agent: dotbot
+Disallow: /
+User-agent: AhrefsBot
+Disallow: /

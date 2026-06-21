@@ -1,0 +1,108 @@
+	body {
+		font-family: "Arial";
+		margin: 10px 10px 0px 10px;
+		padding: 0px;
+		background: #C0C0FF;
+	}
+
+	#leftcontent {
+		font-family: "Arial";
+		position: absolute;
+		left: 0px;
+		top: 10px;
+		width: 180px;
+		background: #fff;
+		border: 1px solid #000;
+		padding-left: 10px
+	}
+
+	#centercontent {
+		position: absolute;
+		font-family: "Arial";
+		margin-top: 10px;
+		margin-left: 10px;
+		margin-right: 10px;
+		left: 200px;
+		top: 105px;
+	}
+
+	html>body #centercontent {
+		font-family: "Arial";
+		margin-left: 201px;
+		margin-right: 152px;
+	}
+
+	#logo {
+		position: absolute;
+		right: 10px;
+		top: 10px;
+		width: 152px;
+		background: #fff;
+	}
+
+	#banner {
+		font-family: Arial;
+		font-weight: bold;
+		background: #E1BC88;
+		height: 90px;
+		margin-right: 175px;
+		margin-left: 225px;
+		text-align: center;
+	}
+
+	#banner2 {
+		position: absolute;
+		right: 60px;
+		top: 60px;
+		height: 30px;
+		width: 300px;
+		background-color: #FF8080;
+		z-index: 2;
+		font-family: "Arial";
+		color: #FFFFFF;
+		text-align: center;
+		margin-left: 240px;
+		margin-right: 175px;
+	}
+
+	#banner3 {
+		font-family: "Arial";
+		height: 30px;
+		font-size: 25px;
+		margin-left: 240px;
+		margin-right: 175px;
+	}
+
+	#banner4 {
+		position: absolute;
+		right: 10px;
+		width: 50px;
+		top: 10px;
+		height: 50px;
+		margin-right: 175px;
+		background-color: #FF8080;
+		z-index: 2;
+	}
+
+	html>body #banner {
+		height: 39px;
+	}
+
+	p, h1, pre {
+		margin: 0px 10px 10px 10px;
+	}
+
+	h1 {
+		font-size: 14px;
+		padding-top: 10px;
+	}
+
+	#banner h1 {
+		font-size: 25px;
+		padding: 10px 10px 0px 10px;
+		margin: 0px;
+	}
+
+	#rightcontent p {
+		font-size: 10px
+	}

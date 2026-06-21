@@ -1,0 +1,247 @@
+=============================================
+WEBSITE CHANGE LOG V2.0.3 PEPPER.HE.NET
+
+need secure ssl login system
+improve log system
+  write to txt file?
+	open new browser window or tab?
+admin move links from nav bar
+  onto admin home web page
+admin delete member also 
+  deletes members photo
+	admin add ability to create 
+  new user account
+admin needs to control ALL accounts
+  create ability to send special
+  link to user. user can use link
+	to create new account
+maintenance user needs ability to 
+  choose from 3000 accounts
+	to perform maintenance
+email all members-post.php works?
+fix admin/eventsdelete
+fix photo upload
+problem in survey-post.php?
+delete member does not work
+add delete member account to members/medit.php
+exceed max number attendees causes error
+  and NO LogMsg!!!
+deselect "I accept the ACG Policies and Liability waiver"
+  causes "Sorry, We have a server problem." !!
+only disply debug text at bottom of eview.php
+  to "Maint" users
+check LogMsg operation from crontab!!!
+crontab runs ONE expired members script
+  script gets day to run report from
+	database
+move all inititalization variables
+  into init object
+emails to admin get email addresses
+  from database
+on new event, lookup admin email addr from 
+  database; developer option to turn off
+	all emails
+on laptop, outgoing emails
+  should open new browser window
+	with text of email on web page
+scan website for unused files and dead links
+replace all $public_domain_name with PublicDomainName()
+prevent admin from changing MyProfile 
+	AuthLevel to "member" or "leader"!!
+use session_is_registered('MemberId')
+  to authenticate login
+eliminate datacon.php
+cleanup crap in ~/lib folder
+POLICIES
+$4 tech support limited to bulletin board forum
+$7 email tech support
+$9 phone tech support
+over 100 members increase
+  fee to $6?
+option for free account using
+  google adsense? (Nick's suggestion)
+establish bank of america online
+  merchant account
+permit admin user to close account
+  via web page
+need fully automatic password reset system
+
+handle ssl join & credit cards on laptop!
+use ssl to transmit login info?
+SendEmailToAdmin
+authenticate developer
+remove unnecessary admin scripts
+hacker proof
+mention case sensitive passwords in 
+  web page text
+upload adventdb files to adventdb@pepper.he.net
+login & test website
+backup laptop /home to dvd!!!
+http://yourdomain.com/webalizer
+ACG website SEO
+automate acg website database full backup
+fix members email to vendors
+acg new member email
+re-add total cost
+fix all $public_domain_name
+eedit double quotes problem
+fix birthdays problem see email
+clean up all firephp statements
+
+recaptcha
+
+WEBSITE CHANGE LOG V2.1.0 MYGROUP.COM
+add multi-group functionality
+add "Developer" authlevel to adventrc members table
+change user chucky to "developer"
+remove m_date_expiration from adventrc members table
+remove m_date_last_login from adventrc members table
+ssl cert for acg godaddy.com $20
+  cert in home dir email support@he.net
+ask he.net to install cert
+
+script report: number of maint users
+
+=============================================
+WEBSITE CHANGE LOG V2.0.0 MYGROUP.COM
+
+plain text passwords!
+password request email system
+
+choose a domain name for the new website
+copy code to mygroup folder on laptop
+
+he.net create mygroup account
+upload code
+
+play with some firefox add-ons
+  web dev add-ons, etc
+learn how to use subversion
+setup debugger
+try delphi for php
+try aptana
+try ruby
+download latest google web toolkit
+
+eliminate include/dbconnect.php
+hackerproof	
+run select gallery maintenance routines
+gallery url rewrite module needs config
+
+test cc scripts
+shoutbox scroll problem
+(btw, I could not read the Captcha security text, so i clicked on \"phonetic spelling mp3\" and it linked to a new page which wiped out the entire message i had typed in, so i had to type everything all over again. Your webmaster can set the link to \"phonetic spelling\" to open a new tab or window, so as not to wipe out the message the person just wrote.)	
+count number of concurrent logins
+//log.php add refresh meta-tag
+gracefull timeout / logout
+add "members" link to admin nav menu
+why 2 email fields on join.php???
+new emailsend function
+add member delete link to medit.php
+fix fucking http://localhost/members/eleader-report.php
+delete/move head/foot scripts from lib dir
+test all scripts
+members photos upload resize large images
+delete unused scripts/files
+cleanup developer error email message
+
+
+PRE DEMO UPLOAD
+establish new empty database structure
+move index.php to index2.php
+upload to demo.adventureclub.info
+
+
+=========
+BACK BURNER
+move mstats.inc to includes dir
+graceful handle invalid event id
+vendors membership list auto email Tami scr
+fix eview.php button spacing
+new auth obj module
+new config obj module
+sync with google/yahoo calendar?
+birthday list missing duplicate entries
+  Both Allyson Fox and Allie Faunce have a birthday on Nov 12.
+acg 2 databases one for gallery
+add members/events to empty database
+remove meta keywords, index.php text
+upload to demo.adventureclub.info
+test thoroughly
+adjust meta keywords, index.php text
+production use
+
+=============================================
+WEBSITE CHANGE LOG V1.5.5
+
+build completely new error handling system
+simplified include files
+move include.inc to includes dir
+delete all unnecessary / unused files
+move club.php code into always.include.inc
+ONE always.include.inc for public & secure
+eliminate pay4event warning emails
+added change event leader script
+localhost display shoutbox
+install new shoutbox
+rig error handler for production use
+email jere shoutbox admin password
+email jere v1.5.5 change log
+
+========================
+UPLOAD LIST!!!
+mysqldump & download
+tar up lib public_html
+upload shoutbox, util, admin, lib, include, members, public_html
+edit always.include.php
+  change public_domain_name to: www.adventureclub.info
+  change ini_set include_path to linux version
+  shoutbox create table
+  
+=============================================
+WEBSITE CHANGE LOG V1.5.6
+add admin nav link to /util/log.php
+zenhostel.com reciprocal links (Sharon)
+replace "shop" with "Inane Shoutouts"
+
+
+=============================================
+WEBSITE CHANGE LOG V1.5.9
+change visited link color to visible color
+  styles.css; shoutbox css override
+change location of session files to
+   ~/var/session; always.include.php
+display special chars
+photo gallery new version?
+always.include.inc auto select laptop/server
+log.php add refresh link
+error handler failing to send emails to admin!
+ERROR: "Undefined variable: loginUsername" (error #8). 
+  NOTICE on line 67 in /home/adventrc/public_html/include/navadmin.php.endmsg
+index.php footer merge with footer.php
+copy folder to v1.6.0
+
+=============================================
+added expiring members report
+
+=============================================
+WEBSITE CHANGE LOG V2.0.0 PEPPER.HE.NET
+move adventrc folder to adventdb
+download adventureclub.info to adventrc.bkup
+edit db.inc
+	domain_name
+	etc
+edit always.include.inc
+  etc
+mysqldump adventrc database
+scp database to adventdb@pepper.he.net
+login to mysql & load database
+backup laptop httpd.conf and httpd-vhosts.conf files
+delete all club.inc references
+change include.inc to include.php
+cleanup usb backup!!!
+investigate maybe turn off "globals on"
+mysqlconnect($connection) global change
+$PHP_SELF global change to $_server['php_self']
+
+WEBSITE CHANGE LOG V2.0.3 PEPPER.HE.NET
