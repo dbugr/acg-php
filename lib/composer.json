@@ -1,6 +1,13 @@
 {
     "require": {
         "amphp/http-client": "^4.6",
-        "mailgun/mailgun-php": "^3.0"
+        "mailgun/mailgun-php": "^3.0",
+        "nyholm/psr7": "^1.6",
+        "symfony/http-client": "^5.4"
+    },
+    "config": {
+        "allow-plugins": {
+            "php-http/discovery": true
+        }
     }
 }
