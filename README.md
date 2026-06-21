@@ -34,23 +34,22 @@ docker compose logs -f     # tail logs
 ## Project layout
 
 ```
-acg-prj/
+acg-php/
 ├── Dockerfile               # PHP 7.4-apache image with extensions
 ├── docker-compose.yml       # web + db services
 ├── config/
 │   ├── acg.ini              # PHP settings (app_env, db hostname, paths)
 │   └── vhost.conf           # Apache virtual host
-├── site/                    # website files (extracted from backup archive)
-│   ├── lib/                 # PHP libraries and Composer dependencies
-│   ├── public_html/         # Apache document root
-│   └── var/                 # logs, sessions, photos (writable)
+├── lib/                      # PHP libraries and Composer dependencies
+├── public_html/              # Apache document root
+├── var/                      # logs, sessions, photos (writable)
 └── mysql-init/
     └── advclub.sql          # database dump — imported on first container start
 ```
 
 ## Source of truth
 
-Files in `site/` were extracted from the backup archives in
+`lib/`, `public_html/`, and `var/` were extracted from the backup archives in
 `/home/chucky/prj/acg-archive/bak/`. The most recent backups used:
 
 - `bak/files/acg_club_files_advclub_2026-05-10_07.20.01.tar.gz`
@@ -59,12 +58,12 @@ Files in `site/` were extracted from the backup archives in
 ## Email
 
 `app_env = "dev"` is set in `config/acg.ini`. In dev mode the site logs
-outbound emails to `site/var/log/advclub.log` instead of sending them via
+outbound emails to `var/log/advclub.log` instead of sending them via
 Mailgun.
 
 ## Source changes from the original backup
 
-Two lines were modified in `site/lib/always.include.php` to work inside
+Two lines were modified in `lib/always.include.php` to work inside
 Docker:
 
 1. Composer autoloader — changed from a hardcoded host path to a path
@@ -72,5 +71,9 @@ Docker:
 2. Database hostname — made overridable via `php.ini` so `config/acg.ini`
    can point it at the `mysql` Docker service instead of `localhost`.
 
-`site/lib/composer.json` had `mailgun/mailgun-php` added (it was installed
-globally on the production server, not in the local vendor directory).
+`lib/composer.json` requires `mailgun/mailgun-php` and `symfony/http-client`
+(the latter provides the PSR-18 HTTP client implementation Mailgun's SDK
+needs — `amphp/http-client`, the other HTTP dependency here, is async-only
+and does not satisfy PSR-18). Both are committed under `lib/vendor/` along
+with their dependencies, synced from what's actually installed on
+production.
