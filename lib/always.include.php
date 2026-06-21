@@ -1555,7 +1555,7 @@ function MailWrapper($EmailNoticesTo,$email_subject,$email_body,$email_headers) 
     $mgClient = Mailgun::create(MAILGUN_API_KEY,
         'https://api.mailgun.net/v3/mg.adventureclub.info/messages');
     $domain = "mg.adventureclub.info";
-    
+
     // inside the loop
     $params = array(
     'from'    => 'noreply@adventureclub.info <noreply@adventureclub.info>',
@@ -1567,14 +1567,22 @@ function MailWrapper($EmailNoticesTo,$email_subject,$email_body,$email_headers) 
     //print_r($params);
 
     # Make the call to the client.
-    $jsonResponse = $mgClient->messages()->send($domain, $params);
+    try {
+        $jsonResponse = $mgClient->messages()->send($domain, $params);
+    } catch (\Throwable $ex) {
+        LogMsg('EXCEPTION sending PRODUCTION email $email_to: ' . $email_to
+        . '  email_subject: ' . $email_subject
+        . ' EXCEPTION: ' . get_class($ex) . ': ' . $ex->getMessage());
+        unset($mgClient);
+        throw $ex;
+    }
     //$MessageSent = mail($email_to, $email_subject, $email_body, $email_from);
     if (!$jsonResponse) {
-        LogMsg('ERROR sending PRODUCTION email $email_to: ' . $email_to 
-        . '  email_subject: ' . $email_subject 
+        LogMsg('ERROR sending PRODUCTION email $email_to: ' . $email_to
+        . '  email_subject: ' . $email_subject
         . ' JSON: '.print_r($jsonResponse,true));
     } else {
-        LogMsg('Sent PRODUCTION email $email_to: ' . $email_to 
+        LogMsg('Sent PRODUCTION email $email_to: ' . $email_to
         . '  email_subject: ' . $email_subject
         . ' JSON: '.print_r($jsonResponse,true));
     }

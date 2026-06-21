@@ -109,13 +109,12 @@ require('top.php');
 <div id="centercontent2">
   <pre>
 <?php
-$aParam['EmailsDeveloperMode'] = true; // redirect emails to log file
-$aParam['EmailsBetaTestMode'] = true; // redirect emails to log file
-if (GetParameter('EmailsDeveloperMode') || GetParameter('EmailsBetaTestMode')) {
-  echo 'DEVELOPER MODE: emails will NOT be sent!' . "\n\n";
+$test_mode = !empty($_POST['test_mode']);
+if ($test_mode) {
+  echo 'TEST MODE: sending only to ' . $EmailNoticesTo . ' instead of all members' . "\n\n";
 }
 
-echo 'Number of EMails to be sent: ' . count($strings) . '<br><br>';
+echo 'Number of EMails to be sent: ' . ($test_mode ? 1 : count($strings)) . '<br><br>';
 
 echo 'FROM: ' . $email_from . "<br><br>";
 
@@ -123,13 +122,24 @@ echo 'SUBJECT: <br>' . $email_subject . "<br><br>";
 echo 'BODY:    <br>' . $email_body . "<br><br>";
 
 // send copy to admin staff
-MailWrapper($EmailNoticesTo, $email_subject, $email_body, $email_from);
+echo 'Sending admin copy to: ' . $EmailNoticesTo . "<br>";
+try {
+  MailWrapper($EmailNoticesTo, $email_subject, $email_body, $email_from);
+} catch (\Throwable $ex) {
+  echo 'ERROR sending admin copy: ' . $ex->getMessage() . "<br>";
+}
 
-foreach ($strings as $email_to) {
-  echo 'Sending email to: ' . $email_to . "<br>";
-  MailWrapper($email_to, $email_subject, $email_body, $email_from);
-  for ($i = 0; $i < 20000; $i++)
-    $e = 10 / 5 * 10 / 5; // waste some time to reduce server load
+if (!$test_mode) {
+  foreach ($strings as $email_to) {
+    echo 'Sending email to: ' . $email_to . "<br>";
+    try {
+      MailWrapper($email_to, $email_subject, $email_body, $email_from);
+    } catch (\Throwable $ex) {
+      echo 'ERROR sending to ' . $email_to . ': ' . $ex->getMessage() . "<br>";
+    }
+    for ($i = 0; $i < 20000; $i++)
+      $e = 10 / 5 * 10 / 5; // waste some time to reduce server load
+  }
 }
 ?>
 </pre>

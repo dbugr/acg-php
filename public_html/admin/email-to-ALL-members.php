@@ -83,6 +83,12 @@ require('top.php');
             <td>
                <textarea name=email_body rows=20 cols="60"></textarea></td>
          </tr>
+         <tr>
+            <td>Test Mode:</td>
+            <td>
+               <input type="checkbox" name="test_mode" value="1" checked>
+               send only to <?php echo htmlspecialchars(GetParameter('EmailNoticesTo')); ?> instead of all members</td>
+         </tr>
       </table>
       <input type="submit" value="Submit">
    </form>
