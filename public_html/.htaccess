@@ -1,0 +1,7 @@
+# Deny direct web access to log files. PHP's error_log setting is a
+# relative path that resolves inside whatever directory the running
+# script lives in, so PHP error logs can end up directly inside the
+# document root and otherwise be servable over HTTP.
+<Files "*.log">
+    Require all denied
+</Files>
