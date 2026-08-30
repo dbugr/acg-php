@@ -8,7 +8,7 @@ require_once __DIR__ . '/secrets.php';
 error_reporting(E_ALL);
 
 # Include the Autoloader (see "Libraries" for install instructions)
-require_once '/home/chucky/.composer/vendor/autoload.php';
+require_once __DIR__ . '/vendor/autoload.php';
 use Mailgun\Mailgun;
 //use Amp\Http\Client\HttpClientBuilder;
 //use Amp\Http\Client\Request;
