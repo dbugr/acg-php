@@ -1,2 +1,3 @@
 var/log/
 lib/secrets.php
+.DS_Store
