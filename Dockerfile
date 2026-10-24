@@ -1,5 +1,9 @@
 FROM php:7.4-apache
 
+# Debian 11 (bullseye) is end-of-life; its packages now live on archive.debian.org
+RUN sed -i -e 's|deb.debian.org|archive.debian.org|g' /etc/apt/sources.list \
+ && echo 'Acquire::Check-Valid-Until "false";' > /etc/apt/apt.conf.d/99archive
+
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
     libpng-dev \
