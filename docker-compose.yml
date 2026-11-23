@@ -4,7 +4,7 @@ services:
     build: .
     container_name: acg-web
     ports:
-      - "8080:80"
+      - "127.0.0.1:8080:80"
     volumes:
       - ./config/acg.ini:/usr/local/etc/php/conf.d/acg.ini:ro
       - ./config/vhost.conf:/etc/apache2/sites-available/000-default.conf:ro
